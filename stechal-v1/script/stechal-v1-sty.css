@@ -1,0 +1,92 @@
+.stechal-dark{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.247);
+z-index: 1000;
+}.stechal{
+    min-height: 150px;
+    width: 520px;
+    background-color: white;
+    border-radius: 8px;
+    position: absolute;
+    opacity: 0%;
+    transition: 0.3s;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) ;
+}.stechal-titleHolder{
+    min-height: 60px;
+    width: 100%;
+    margin-top: 0px;
+}.stechal-title{
+    font-family: Arial;
+    text-align: center;
+    color: rgb(87, 95, 95);
+    font-size:30px;
+}.stechal-buttonHolder{
+    height: 65px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    width: 100%;
+}.stechal-button{
+    padding: 8px;
+    border-radius: 8px;
+    outline: 3.5px solid rgb(151, 168, 185);
+    border: 1px solid white;
+    background-color: rgb(101, 99, 197);
+    color: white;
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 400;
+    padding-left: 16px;
+    padding-right: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    
+}.stechal-button:hover{
+    background-color: rgb(88, 86, 153);
+}.stechal-button:active{
+    background-color: rgb(118, 116, 201);
+}.stechal-cancel-button{
+    padding: 8px;
+    border-radius: 8px;
+    outline: 3.5px solid rgb(217, 220, 223);
+    border: 1px solid white;
+    background-color: rgb(180, 182, 192);
+    color: white;
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 400;
+    padding-left: 16px;
+    padding-right: 16px;
+    transition: 0.3s;
+    margin-right: 10px;
+    cursor: pointer;
+}.stechal-cancel-button:hover{
+    background-color: rgb(172, 172, 199);
+}.stechal-cancel-button:active{
+    background-color: rgb(137, 137, 168);
+}.stechal-buttonChildHolder{
+    height: max-content;
+    width: max-content;
+    margin-left: auto;
+    margin-right: auto;
+}.stechal-description{
+    text-align: center;
+    font-size: 15px;
+    color: rgb(98, 107, 107);
+    margin-bottom: 32px;
+    font-family: Arial;
+}.icon{
+    height: 45px;
+    width: 45px;
+    background: url("assets/suc-ic.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+}

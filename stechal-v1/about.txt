@@ -1,0 +1,44 @@
+stechal-v1
+
+Stechal is a customizable & beautiful replacement for JavaScript's popup boxes.
+
+::USAGE
+
+<script src="stechal-v1/script/stechal-v1.js"></script>
+<link rel="stylesheet" href="stechal-v1/script/stechal-v1-sty.css">
+
+:: BASIC EXAMPLE
+Stechal({
+title: "Your Title",
+text: "Hello World",
+id: "alert1",
+type: "alert",
+icon: "success",
+button: "OK"
+})
+
+:: HOW TO CUSTOM BUTTON, TITLE, OR TEXT
+
+Custom Title: titleStyle: "your css"
+
+Example: titleStyle: "font-family:calibri light"
+
+Custom Text: textStyle: "your css"
+
+Example: textStyle: "color:red;font-size:13px;"
+
+Custom Button: buttonStyle: "your css"
+
+Example: textStyle: "outline:2px solid red;"
+
+:: HOW TO MAKE ALERT WITH CANCEL BUTTON
+
+Stechal({
+type: "confirm"
+})
+
+
+::WARNING!
+Stechal popup won't run if you don't give title, id, and type
+
+

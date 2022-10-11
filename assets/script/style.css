@@ -1,0 +1,245 @@
+
+body{
+    font-family: calibri;
+    background-color: #efefef;
+    position: relative;
+  }
+  input[type="text"]{
+    height: 37px;
+    width: 500px;
+    border: 2px solid purple;
+    border-radius: 5px;
+    font-size: 22px;
+    font-family: calibri;
+    outline: 2px solid white;
+  }
+  input[type="text"]:focus{
+    border: 2px solid rgb(66, 5, 66);
+    box-shadow: 0px 0px 5px grey;
+  }
+  label{
+    color: rgb(66, 5, 66);
+    font-size: 15px;
+
+  }
+  textarea{
+    height: 100px;
+    width: 500px;
+    border: 2px solid purple;
+    outline: 2px solid white;
+    border-radius: 5px;
+    resize: none;
+    font-family: calibri;
+    font-size: 22px;
+    overflow-y:auto;
+    /* white-space: nowrap; */
+    
+    
+  }
+  textarea:focus{
+    border: 2px solid rgb(66, 5, 66);
+    box-shadow: 0px 0px 5px grey;
+  }
+  .keybox{
+    height: 70px;
+    width: 500px;
+    background-color: white;
+    box-shadow: 0px 0px 3px rgb(66, 5, 66);
+    border-radius: 5px;
+  }
+  .opt{
+    height: 27px;
+    display: inline-block;
+    color: white;
+    text-align: center;
+    line-height: 27px;
+    width: 27px;
+    border-radius: 50%;
+    margin-left: 20px;
+    outline: 1px solid purple;
+    transition: 0.3s;
+    background-color: rgb(172, 63, 172);
+    user-select: none;
+  }
+  .opt:hover{
+    outline: 1px solid black;
+  }
+  .abcGroup{
+    height: max-content;
+    width: max-content;
+    line-height: 70px;
+    float: left;
+  }
+  .number{
+    height: 35px;
+    width: 35px;
+    background-color: rgb(172, 63, 172);
+    border: 1px solid purple;
+    text-align: center;
+    line-height: 35px;
+    color: white;
+    font-size: 22px;
+    border-radius: 50%;
+    margin-left: -50px;
+  }
+  .exercise{
+    height: max-content;
+    width: max-content;
+  }
+  .exerNum{
+    border: 2px solid purple;
+    outline: 2px solid white;
+    border-radius: 5px;
+    width: 70px;
+    height: 40px;
+    font-size: 20px;
+    color: rgb(66, 5, 66);
+    text-align: center;
+    float: left;
+  }
+  .exerNum:focus{
+    border: 2px solid rgb(66, 5, 66);
+    box-shadow: 0px 0px 5px grey;
+  }
+  .createExerBtn{
+    float: left;
+    border-top-right-radius:20px;
+    border-bottom-right-radius: 20px;
+    border-top-left-radius: 20px;
+    height: 40px;
+    width: 40px;
+    background-color: purple;
+    margin-left: 10px;
+    text-align: center;
+    transition: 0.3s;
+    cursor: pointer;
+  }
+  .createExerBtn:hover{
+    background-color: rgb(177, 44, 177);
+  }
+  .makePopUp{
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    background-color: rgb(228, 222, 228);
+    z-index: 1;
+  }
+  .saveBtn{
+    height:30px;
+    width: 80px;
+    border-radius: 5px;
+    background-color: purple;
+    color: white;
+    font-family: calibri;
+    user-select: none;
+    cursor: pointer;
+    transition: 0.3s;
+    margin: 5;
+  }
+  .saveBtn:hover{
+    background-color: rgb(172, 63, 172);
+  }
+  *{
+    margin: 0;
+  }
+  .footer{
+    height:170px;
+    width: 100%;
+    background-color: white;
+    bottom: 0;
+    box-shadow:0px 0px 4px lightgrey;
+   
+  }
+  .saveBox{
+    height: 265px;
+    width: 270px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0px 0px 4px rgb(180, 180, 180);
+    position: fixed;
+    right: -280;
+    margin-top: 50px;
+  }
+  .downloadBtn{
+    padding: 3px;
+    background-color: rgb(182, 42, 182);
+    color: white;
+    box-shadow: 0px 0px 3px lightgrey;
+    border: solid rgb(182, 42, 182);
+    font-size: 11px;
+    height: 29px;
+    width: 100px;
+    border-radius: 5px;
+    cursor: pointer;
+    letter-spacing: 0px;
+    transition: 0.3s;
+  }
+  .downloadBtn:hover{
+    letter-spacing: 0.5px;
+    background-color: rgb(146, 65, 146);
+    border: solid rgb(146, 65, 146);
+  }
+  .div{
+    height: 200px;
+    width: 480px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0px 0px 4px grey;
+    padding: 10px;
+  }
+  /* Popup container - can be anything you want */
+.popup {
+  position: relative;
+  display: inline-block;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* The actual popup */
+.popup .popuptext {
+  visibility: hidden;
+  min-width: 230px;
+  max-width: 300px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -80px;
+}
+
+/* Popup arrow */
+.popup .popuptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+/* Toggle this class - hide and show the popup */
+.popup .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s;
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+  from {opacity: 0;} 
+  to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity:1 ;}
+}
