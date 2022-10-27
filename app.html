@@ -2,8 +2,9 @@
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <!-- <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script> -->
+  <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Exerr | Make a question</title>
   <link rel="stylesheet" href="assets/script/style.css">
@@ -11,8 +12,24 @@
   <link rel="icon" href="assets/img/exerr_logo.ico" type="image/x-icon">
   <script src="stechal-v1/script/stechal-v1.js"></script>
   <link rel="stylesheet" href="stechal-v1/script/stechal-v1-sty.css">
+  <script src="https://kit.fontawesome.com/a97e3629c1.js" crossorigin="anonymous"></script>
+  <script defer src="https://use.fontawesome.com/releases/v6.2.0/js/solid.js" integrity="sha384-/BxOvRagtVDn9dJ+JGCtcofNXgQO/CCCVKdMfL115s3gOgQxWaX/tSq5V8dRgsbc" crossorigin="anonymous"></script>
+  <script defer src="https://use.fontawesome.com/releases/v6.2.0/js/fontawesome.js" integrity="sha384-dPBGbj4Uoy1OOpM4+aRGfAOc0W37JkROT+3uynUgTHZCHZNMHfGXsmmvYTffZjYO" crossorigin="anonymous"></script>
 </head>
-<body onload="bodyLoader()">
+<body onresize="screenSize()" onload="bodyLoader()">
+  <div style="display:non;" class="errorScreenWarning">
+    <div class="errorContainer">
+    <h1 class="titleError" style="font-weight:400;text-align: center;">Ukuran Layar Terlalu Kecil</h1>
+    <div class="twoContainer">
+    <div class="iconContainer"><h1>:(</h1></div>
+    <div class="messageContainer">Maaf, Exerr masih belum dioptimalkan untuk penggunaan pada layar dibawah 654 piksel!
+      <br>
+      <b class="screenSizer" style="float:right;">Ukuran layar: <span id="screenSize">? </span></b>
+    </div>
+    </div>
+    <p></p>
+    </div>
+  </div>
   <div id="saveBox" class="saveBox">
     <h1 style="font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;font-weight: 100;color: rgb(56, 56, 56);margin:15px;">Save</h1>
     <label style="margin-left:26px;font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;font-size: 13px;color: black;" for="allTotal">As HTML:</label>
@@ -24,48 +41,99 @@
     </div>
     </div>
   <div id="makePopUp" class="makePopUp">
+    <div id="buatKuis" style="height:450px;position: fixed;z-index: 3;width: 380px;top: 50%;left: 50%;transform: translate(-50%,-50%)  scale(0.0);display:none;" class="div">
+      <br>
+      <h1 style="font-weight:400;font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;margin-left:20px;">Buat Kuis</h1>
+      <div id="purMark" style="height:3px;width: 0px;background-color: purple;margin-left: 20px;"></div>
+      <br>
+      <label style="margin-left:20px;" for="judulInp">Judul</label>
+      <br>
+    <input spellcheck="false" autocomplete="0" id="judulInp" style="width:300px;height: 30px;font-size: 16px;margin-left: 20px;" type="text">
+    <br>
+    <br>
+      <label style="margin-left:20px;" for="descriptionInp">Deskripsi (opsional)</label>
+      <br>
+    <textarea id="descriptionInp" spellcheck="false" style="width:300px;height: 70px;font-size: 16px;margin-left: 20px;" type="text"></textarea>
+    <br>
+    <br>
+    <div onclick="showCorrect()" id="showCorrectBtn" title="Setiap jawaban user akan diberikan mark merah jika jawaban salah atau hijau jika jawaban benar" class="tampKes">Tampilkan hasil koreksi <i class="fa-solid fa-eye"></i></div>
+    <br>
+    <div onclick="hideCorrect()" id="hideCorrectBtn" title="Setiap jawaban yang benar dan salah tidak akan ditampilkan dan hanya menampilkan skor" class="jangTamp">Jangan tampilkan hasil koreksi <i class="fa-solid fa-eye-slash"></i></div>
+    <div style="width:max-content;margin-left: 200px;margin-top: 20px;">
+      <label style="color:rgb(0, 0, 0);" for="exerNum"> Jumlah Pertanyaan</label>
+      <br>
+      <input style="border:2px solid purple;" oninput="inpChecker()" id="exerNum" type="number" value="2" min="2" class="exerNum">
+      <div id="creatorBtn" onclick="createExer()" class="createExerBtn">
+        <i style="font-size: 16px;color: white;margin-top: 12px;" class="fa-solid fa-pencil"></i>
+      </div>
+      <div id="creatorBtn2" style="background-color:rgb(197, 197, 197);display: none;" onclick="showNotif()" class="createExerBtn">
+        <i style="font-size: 16px;color: rgb(255, 255, 255);margin-top: 12px;" class="fa-solid fa-pencil"></i>
+      </div>
+      </div>
+    </div>
+    <div style="display:none;" id="setupBox" class="setup-box">
+      <h1 style="font-weight:100;margin: 30px;height: max-content;width: max-content;border-bottom: 3px solid purple;">Exerr 1.0.0 Setup</h1>
+      <div style="height:300px;width: 90%;margin-left: auto;margin-right: auto;font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;font-size: 14.5px;">
+        <b style="margin-left:30px;font-size: 14px;">Features</b>
+      <ul>
+        <li>Double language</li>
+        <li>Double saving settings: HTML and Download</li>
+        <li>Smooth animation display</li>
+        <li>Smooth alert display</li>
+        <li><i>One-time</i> quiz mode</li>
+        <li>Auto correcting</li>
+        <li>Hide/Show auto correcting</li>
+        <li>Less than 2mb file</li>
+      </ul>
+      <br>
+      <hr>
+      <br>
+      <p style="text-align: center;">Welcome to Exerr 1.0.0 ! A quiz maker app made by Stechy to help teachers to make a digital quiz/questions to their student. Exerr does not use internet conncection to create or complete the quiz because Exerr is a client-side application which ensures your privacy. Exerr is also designed neatly and comfortably which makes it convenient to create or answer questions.</p>
+      <br>
+      <p style="text-align:center;width: max-content;height: max-content;margin-left: auto;margin-right: auto;border-bottom: 2px solid purple;">Select your Language </p>
+      <div style="height:max-content;width: max-content;margin-left: auto;margin-right: auto;">
+      <div onclick="englishBtn()" class="languageBtn">English</div>
+      <div onclick="indoBtn()" class="languageBtn2">Bahasa</div>
+      </div>
+    </div>
+    </div>
     <div style="margin-left:auto;margin-right: auto;width: max-content;">
+      <div style="display:none;" id="welcomeScreen" class="welcomeScreen">
+        <div  style="height:max-content;width: max-content;top: 50%;left: 50%;transform: translate(-50%,-50%);position: absolute;">
+        <p style="user-select:none;font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;" id="welcomeText">Selamat Datang</p>
+        </div>
+      </div>
       <br>
       <br>
       <br>
       <br>
       <div style="width:50px;height: 100px;"></div>
-    <label style="color:rgb(0, 0, 0);" for="judulInp">Title</label>
-    <div style="margin-left:100px;" class="popup">
-      <span style="text-align:center;" class="popuptext" id="myPopup">Masukkan judul pertanyaan disini</span>
+    <label id="judLabel" style="color:rgb(0, 0, 0);display: none;" for="judulInp">Judul</label>
+    <div id="pupup" style="margin-left:100px;display: nne;" class="popup">
+      <span style="text-align:center;" class="popuptext" id="myPopup">Masukkan judul kuis disini</span>
       </div>
   <br>
-  
-  <input oninput="removePopup()" placeholder="Exam1" autocomplete="0" id="judulInp" spellcheck="false" type="text">
-  
-  </div>
-  <br>
-  <div style="margin-left: auto;margin-right: auto;width: max-content;">
-    <label style="color:rgb(0, 0, 0);" for="descriptionInp">Description (optional)</label>
-    <br>
-  <textarea placeholder="" id="descriptionInp" style="font-size:17px;height: 70px;"></textarea>
+  <input style="display:none;" oninput="removePopup()" placeholder="Kuis Saya" autocomplete="0" id="judulInp0" spellcheck="false" type="text" onchange="doneJudul()">
   <br>
   <br>
-  <div style="width:max-content;margin-left: 380px">
-  <label style="color:rgb(0, 0, 0);" for="exerNum"> Number of question</label>
+  </div>
   <br>
-  <input id="exerNum" type="number" value="2" min="2" class="exerNum">
-  <div onclick="createExer()" class="createExerBtn">
-    <ion-icon name="pencil-outline" style="font-size: 20px;color: white;margin-top: 10px;"></ion-icon>
   </div>
-  </div>
-  </div>
-  </div>
-  <div onclick="makeTxt()" class="saveBtn" style="float: right;"><div style="float:left;line-height: 30px;margin-left: 16px;">Save </div> <ion-icon name="save-outline" style="font-size:18px;color: white;margin-top: 5px;"></ion-icon></div>
+  <div onclick="makeTxt()" class="saveBtn" style="float: right;"><div style="float:left;line-height: 30px;margin-left: 16px;">Save <i class="fa-solid fa-floppy-disk"></i></div></div>
   <div id="centerer" style="margin-left: auto;margin-right: auto;width: max-content;">
   
   <br>
-  <br>
-  
+  <br>  
   <br>
   <br>
   <textarea style="display:none;" id="upper"></textarea>
   <textarea style="display:none;" id="downer"></textarea>
+  <div style="margin-top:100px;margin-left:350px;position: absolute;" class="popup">
+    <span style="text-align:center;" class="popuptext" id="myPopup2">Masukkan pertanyaan disini</span>
+    </div>
+    <div style="margin-top:220px;margin-left:120px;position: absolute;" class="popup">
+      <span style="text-align:center;" class="popuptext" id="myPopup3">Pilih kunci jawaban disini</span>
+      </div>
   <textarea onclick="ee()" id="tester" style="height:100px;width: 400px;position: fixed;font-size: 14px;display: none;"></textarea>
   </div>
   <br>
@@ -77,5 +145,12 @@
     <br>
     <p style="text-align:center;color: lightgrey;">Exerr 1.0.0 | Stechy</p>
   </div>
+  <script>
+    document.getElementById("screenSize").innerHTML = window.innerWidth
+    function screenSize(){
+      document.getElementById("screenSize").innerHTML = window.innerWidth
+    }
+    
+  </script>
 </body>
 </html>
