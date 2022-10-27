@@ -184,7 +184,7 @@ body{
     width: 480px;
     background-color: white;
     border-radius: 5px;
-    box-shadow: 0px 0px 4px grey;
+    box-shadow: 0px 0px 4px -1px rgb(104, 104, 104);
     padding: 10px;
   }
   /* Popup container - can be anything you want */
@@ -242,4 +242,245 @@ body{
 @keyframes fadeIn {
   from {opacity: 0;}
   to {opacity:1 ;}
+}
+.errorScreenWarning{
+  height: 100%;
+  width: 100%;
+  background-color: rgb(212, 28, 28);
+  position: fixed;
+  z-index: 2;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  display: none;
+}
+.errorContainer{
+  height: max-content;
+  width: 95%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  color: white;
+  transform: translate(-50%, -50%);
+  
+}
+.iconContainer{
+  font-size: 50px;
+  font-weight: 400;
+  user-select: none;
+  height: max-content;
+  width: max-content;
+  float: left;
+}
+.messageContainer{
+  float: left;
+  margin-top: 50px;
+  height: 50px;
+  width: 280px;
+  font-size: 15px;
+  text-align: justify;
+  margin-left: 20px;
+}
+@media only screen and (max-width: 654px){
+  .errorScreenWarning{
+    display: block;
+  }
+}
+@media only screen and (max-width: 379px){
+  .errorScreenWarning{
+    display: block;
+  }
+  .messageContainer{
+    font-size: 14px;
+    margin-left: 10px;
+    width: 240px;
+  }
+  .titleError{
+    font-size: 27px;
+  }
+  .iconContainer{
+    font-size: 45px;
+  }
+  .screenSizer{
+    margin-top: 5px;
+  }
+}
+.twoContainer{
+  margin-left: auto;
+  margin-right: auto;
+  width: max-content;
+}
+.tampKes{
+  user-select: none;
+  height: 35px;
+  width: 250px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: rgba(226, 108, 118, 0.74);
+  border: 1px solid transparent;
+  color: rgb(92, 11, 11);
+  text-align: center;
+  border-radius: 5px;
+  line-height: 35px;
+  cursor: pointer;
+  line-height: none;
+  transition: 0.3s;
+}
+.tampKes:hover{
+  background-color: rgba(240, 155, 162, 0.788);
+}
+.jangTamp{
+  user-select: none;
+  height: 35px;
+  width: 250px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: rgba(231, 231, 231, 0.952);
+  color: rgb(107, 107, 107);
+  border: 1px solid transparent;
+  text-align: center;
+  font-size: 14.5px;
+  border-radius: 5px;
+  line-height: 35px;
+  cursor: pointer;
+  line-height: none;
+  transition: 0.3s;
+}
+.jangTamp:hover{
+  background-color: rgba(209, 209, 209, 0.719);
+}
+ion-icon{
+  pointer-events: none;
+}
+.setup-box{
+  height: 500;
+  position: fixed;
+  width:550px;
+  border-radius: 5px;
+  background-color: rgb(252, 252, 252);
+  z-index: 5;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+li{
+  font-size: 13px;
+}
+.languageBtn{
+  height:30px;background-color: purple;width: 80px;text-align: center;line-height: 30px;user-select: none;
+  color: white;
+  border-bottom-left-radius: 20px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  margin-top: 10px;
+  float: left;
+  transition: 0.3s;
+  font-size: 14px;
+  cursor: pointer;
+}
+.languageBtn2{
+  height:30px;background-color: purple;width: 80px;text-align: center;line-height: 30px;user-select: none;
+  color: white;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  margin-left: 5px;
+  border-bottom-right-radius: 20px;
+  margin-top: 10px;
+  float: left;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.languageBtn:hover{
+  background-color: rgb(187, 52, 187);
+}
+.languageBtn2:hover{
+  background-color: rgb(187, 52, 187);
+}
+.welcomeScreen{
+  height: 200px;
+  width: 400px;
+  background-color: white;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  top: 50%;
+  position: absolute;
+  text-align: center;
+  font-size: 24px;
+  color: rgb(63, 63, 63);
+}
+@keyframes changeColor {
+  0%{background-color: white;}
+  20%{background-color: rgb(233, 233, 233);}
+  40%{background-color: rgb(209, 209, 209);}
+  65%{background-color: rgb(100, 100, 100);}
+  80%{background-color: rgb(53, 53, 53);color: black;}
+  100%{background-color: black;color: black;}
+}
+
+.memoryContainer{
+  min-height: 70px;
+  width: 500px;
+  background-color: white;
+  border-radius: 5px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 13px;
+}
+.labelMemory{
+  font-size: 13px;
+  margin-left: 68px;
+}
+.memory-box{
+  height: 24px;
+  width: 450px;
+  border-radius: 5px;
+  background-color: rgba(197, 201, 214, 0.315);
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 3px;
+  user-select: none;
+}
+.name-box{
+  height: 24px;
+  width: 90px;
+  margin-left: 5px;
+  line-height: 24px;
+  background-color: rd;
+  float: left;
+  color: rgb(59, 59, 59);
+}
+.memory-box:hover{
+  background-color: rgba(197, 201, 214, 0.445);
+}
+.memory-box:active{
+  background-color: rgba(197, 201, 214, 0.315);
+}
+.showMemory{
+  min-height: 200px;
+  width: 320px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 5px;
+  background-color: rgb(248, 248, 248);
+  box-shadow: 0px 0px 3px grey;
+}
+.labele{
+  margin-left: 20px;
+  font-weight: 600;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 15px;
+}
+.bukaBtn{
+  border: none;
+  background-color: purple;
+  padding: 5px;
+  width: 50px;
+  height: 30px;
+  border-radius: 5px;
+  color: white;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  cursor: pointer;
+  margin-bottom:20px;
+  line-height: 0px;
+  margin-left: 10px;
 }
