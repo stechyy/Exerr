@@ -2,6 +2,7 @@ var date = new Date;
 var day = date.getDate();
 var month = date.getMonth()+1;
 var year = date.getFullYear();
+var showCorrectOutput = true;
 function toPaper(num){
   var title = document.getElementById("judulInp").value;
   var description = document.getElementById("descriptionInp").value
@@ -230,7 +231,7 @@ function toPaper(num){
           position: fixed;
       }
       .donePopUp{
-          height: 275px;
+          height: 230px;
           width: 400px;
           border-radius: 10px;
           background-color: white;
@@ -338,22 +339,40 @@ function toPaper(num){
         background-color: rgb(177, 118, 177);
         border: 2px solid rgb(177, 118, 177);
       }
+      .warningContainer{
+        min-height: 150px;
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: 5px;
+        box-shadow: 0px 0px 5px rgb(207, 207, 207);
+        background-color: white;
+        margin-top: 20px;
+        
+    }
     </style>
 </head>
-<body>
+<body onload="loader()">
+<div style="display:none;" id="warningContainer" class="warningContainer">
+    <br>
+    <div style="height:max-content;width: 90%;padding: 5px;border-bottom: 4px solid purple;margin: 20px;border-bottom-right-radius: 4px;">
+    <h1 style="font-weight:100;font-family: arial;font-size: 30px;">Anda sudah mengisi kuis ini!</h1>
+  </div>
+  <p style="margin-left:20px;">Maaf, kuis ini hanya dapat diisi satu kali. Jika anda ingin mengisi ulang, segera hubungi pemilik kuis.</p>
+  <br>
+  </div>
     <div id="dark" style="display:none; " onclick="startAnim()" class="darkness">
         <div id="donePop" class="donePopUp">
             <h1 class="closeBtn" onclick="closePopup()">×</h1>
             <div id="valuePopUp" class="valuePopup">-</div>
             <br>
-            <h1 style="text-align:center;font-weight: 400;color: rgb(121, 50, 121);">Congratulation</h1>
         </div>
     </div>
-    <div style="margin-left:auto;margin-right: auto;width: max-content;">
+    <div style="margin-left:auto;margin-right: auto;width: max-content;" id="homeContainer">
         <br>
         <div style="border-bottom-left-radius: 7px;border-bottom-right-radius: 7px;" class="exerContainer">
             <br>
-                    <h1 style="font-size:23px;font-family: Arial, Helvetica, sans-serif;font-weight: 100;margin-left: 15px;">`+title+`</h1>
+                    <h1 id="theTitle" style="font-size:23px;font-family: Arial, Helvetica, sans-serif;font-weight: 100;margin-left: 15px;">`+title+`</h1>
                     <br>
                     <pre style="font-size:16px;margin-left: 15px;font-family: calibri light;">`+description+`</pre>
                     <br>
@@ -364,10 +383,20 @@ function toPaper(num){
         <div class="doneBtnContainer"><button id="doneBtn" class="doneBtn" onclick="doneBtn()">Done</button></div>
         </div>
     `
+    if (showCorrectOutput == true) {
     document.getElementById("downer").innerHTML = `</div>
     <script>
+    //show mode on
         const numQuest = `+jumlahPertanyaan+`;
-        
+        function loader(){
+          var title = document.getElementById('theTitle').innerHTML;
+          var x = localStorage.getItem("loaderId");
+          if (x == "LOADX0X0X0X0X0XLOAD-"+title) {
+            document.getElementById("homeContainer").style.display = 'none';
+            document.getElementById("warningContainer").style.display = ''
+          }
+          
+        }
 function ans(ans,num,logic){
   pickOneAnswer(num)
 var check = document.getElementById("check"+ans+num);
@@ -402,70 +431,393 @@ if (check.checked == true) {
 }
 }
 function doneBtn(){
+  var conf = confirm("Apakah anda yakin ingin menyelesaikan kuis?")
+  if (conf == false) {
+    return false
+  }
+  var title = document.getElementById('theTitle').innerHTML;
+  localStorage.setItem("loaderId",  "LOADX0X0X0X0X0XLOAD-"+title);
   document.getElementById('doneBtn').style.display = 'none'
-   if (numQuest == 2) {
-      var value = parseInt(v1.innerHTML)+parseInt(v2.innerHTML);
-      document.getElementById("valuePopUp").innerHTML = value+'/'+numQuest;
-      var x = document.createElement("div")
-      x.innerHTML = '<div class="scoreOfQuest"><b>SCORE <b style="background-color:rgb(172, 63, 172);color: white;padding: 3px;border-radius: 5px;font-size: 15px;">'+value+'/'+numQuest+'</b></b></div>'
-      document.getElementById("infoBox").appendChild(x)
-   }
-   if (numQuest == 3) {
-      var value = parseInt(v1.innerHTML)+parseInt(v2.innerHTML)+parseInt(v3.innerHTML);
-      document.getElementById("valuePopUp").innerHTML = value+'/'+numQuest;
-      var x = document.createElement("div")
-      x.innerHTML = '<div class="scoreOfQuest"><b>SCORE <b style="background-color:rgb(172, 63, 172);color: white;padding: 3px;border-radius: 5px;font-size: 15px;">'+value+'/'+numQuest+'</b></b></div>'
-      document.getElementById("infoBox").appendChild(x)
-   }
-   if (numQuest == 4) {
-      var value = parseInt(v1.innerHTML)+parseInt(v2.innerHTML)+parseInt(v3.innerHTML)+parseInt(v4.innerHTML);
-      document.getElementById("valuePopUp").innerHTML = value+'/'+numQuest;
-      var x = document.createElement("div")
-      x.innerHTML = '<div class="scoreOfQuest"><b>SCORE <b style="background-color:rgb(172, 63, 172);color: white;padding: 3px;border-radius: 5px;font-size: 15px;">'+value+'/'+numQuest+'</b></b></div>'
-      document.getElementById("infoBox").appendChild(x)
-   }
-   if (numQuest == 5) {
-      var value = parseInt(v1.innerHTML)+parseInt(v2.innerHTML)+parseInt(v3.innerHTML)+parseInt(v4.innerHTML)+parseInt(v5.innerHTML);
-      document.getElementById("valuePopUp").innerHTML = value+'/'+numQuest;
-      var x = document.createElement("div")
-      x.innerHTML = '<div class="scoreOfQuest"><b>SCORE <b style="background-color:rgb(172, 63, 172);color: white;padding: 3px;border-radius: 5px;font-size: 15px;">'+value+'/'+numQuest+'</b></b></div>'
-      document.getElementById("infoBox").appendChild(x)
-   }
-   if (numQuest == 6) {
-    var value = parseInt(v1.innerHTML)+parseInt(v2.innerHTML)+parseInt(v3.innerHTML)+parseInt(v4.innerHTML)+parseInt(v5.innerHTML)+parseInt(v6.innerHTML);
+  if (numQuest == 2) {
+    var value = parseInt(v1.innerHTML)+parseInt(v2.innerHTML);
     document.getElementById("valuePopUp").innerHTML = value+'/'+numQuest;
     var x = document.createElement("div")
     x.innerHTML = '<div class="scoreOfQuest"><b>SCORE <b style="background-color:rgb(172, 63, 172);color: white;padding: 3px;border-radius: 5px;font-size: 15px;">'+value+'/'+numQuest+'</b></b></div>'
     document.getElementById("infoBox").appendChild(x)
+    if (v1.innerHTML == 0) {
+      document.getElementById("wrongLogo1").style.display = ''
+    }else{
+      document.getElementById("trueLogo1").style.display = ''
+    }
+    if (v2.innerHTML == 0) {
+      document.getElementById("wrongLogo2").style.display = ''
+    }else{
+      document.getElementById("trueLogo2").style.display = ''
+    }
+    if (v3.innerHTML == 0) {
+      document.getElementById("wrongLogo3").style.display = ''
+    }else{
+      document.getElementById("trueLogo3").style.display = ''
+    }
+    if (v4.innerHTML == 0) {
+      document.getElementById("wrongLogo4").style.display = ''
+    }else{
+      document.getElementById("trueLogo4").style.display = ''
+    }
+    if (v5.innerHTML == 0) {
+      document.getElementById("wrongLogo5").style.display = ''
+    }else{
+      document.getElementById("trueLogo5").style.display = ''
+    }
+    if (v6.innerHTML == 0) {
+      document.getElementById("wrongLogo6").style.display = ''
+    }else{
+      document.getElementById("trueLogo6").style.display = ''
+    }
+    if (v7.innerHTML == 0) {
+      document.getElementById("wrongLogo7").style.display = ''
+    }else{
+      document.getElementById("trueLogo7").style.display = ''
+    }
+    if (v8.innerHTML == 0) {
+      document.getElementById("wrongLogo8").style.display = ''
+    }else{
+      document.getElementById("trueLogo8").style.display = ''
+    }
+    if (v9.innerHTML == 0) {
+      document.getElementById("wrongLogo9").style.display = ''
+    }else{
+      document.getElementById("trueLogo9").style.display = ''
+    }
+    if (v10.innerHTML == 0) {
+      document.getElementById("wrongLogo10").style.display = ''
+    }else{
+      document.getElementById("trueLogo10").style.display = ''
+    }
  }
- if (numQuest == 7) {
-    var value = parseInt(v1.innerHTML)+parseInt(v2.innerHTML)+parseInt(v3.innerHTML)+parseInt(v4.innerHTML)+parseInt(v5.innerHTML)+parseInt(v6.innerHTML)+parseInt(v7.innerHTML);
+ if (numQuest == 3) {
+    var value = parseInt(v1.innerHTML)+parseInt(v2.innerHTML)+parseInt(v3.innerHTML);
     document.getElementById("valuePopUp").innerHTML = value+'/'+numQuest;
     var x = document.createElement("div")
     x.innerHTML = '<div class="scoreOfQuest"><b>SCORE <b style="background-color:rgb(172, 63, 172);color: white;padding: 3px;border-radius: 5px;font-size: 15px;">'+value+'/'+numQuest+'</b></b></div>'
     document.getElementById("infoBox").appendChild(x)
+    if (v1.innerHTML == 0) {
+      document.getElementById("wrongLogo1").style.display = ''
+    }else{
+      document.getElementById("trueLogo1").style.display = ''
+    }
+    if (v2.innerHTML == 0) {
+      document.getElementById("wrongLogo2").style.display = ''
+    }else{
+      document.getElementById("trueLogo2").style.display = ''
+    }
+    if (v3.innerHTML == 0) {
+      document.getElementById("wrongLogo3").style.display = ''
+    }else{
+      document.getElementById("trueLogo3").style.display = ''
+    }
+    
  }
- if (numQuest == 8) {
-    var value = parseInt(v1.innerHTML)+parseInt(v2.innerHTML)+parseInt(v3.innerHTML)+parseInt(v4.innerHTML)+parseInt(v5.innerHTML)+parseInt(v6.innerHTML)+parseInt(v7.innerHTML)+parseInt(v8.innerHTML);
+ if (numQuest == 4) {
+    var value = parseInt(v1.innerHTML)+parseInt(v2.innerHTML)+parseInt(v3.innerHTML)+parseInt(v4.innerHTML);
     document.getElementById("valuePopUp").innerHTML = value+'/'+numQuest;
     var x = document.createElement("div")
     x.innerHTML = '<div class="scoreOfQuest"><b>SCORE <b style="background-color:rgb(172, 63, 172);color: white;padding: 3px;border-radius: 5px;font-size: 15px;">'+value+'/'+numQuest+'</b></b></div>'
     document.getElementById("infoBox").appendChild(x)
+    if (v1.innerHTML == 0) {
+      document.getElementById("wrongLogo1").style.display = ''
+    }else{
+      document.getElementById("trueLogo1").style.display = ''
+    }
+    if (v2.innerHTML == 0) {
+      document.getElementById("wrongLogo2").style.display = ''
+    }else{
+      document.getElementById("trueLogo2").style.display = ''
+    }
+    if (v3.innerHTML == 0) {
+      document.getElementById("wrongLogo3").style.display = ''
+    }else{
+      document.getElementById("trueLogo3").style.display = ''
+    }
+    if (v4.innerHTML == 0) {
+      document.getElementById("wrongLogo4").style.display = ''
+    }else{
+      document.getElementById("trueLogo4").style.display = ''
+    }
+    
  }
- if (numQuest == 9) {
-    var value = parseInt(v1.innerHTML)+parseInt(v2.innerHTML)+parseInt(v3.innerHTML)+parseInt(v4.innerHTML)+parseInt(v5.innerHTML)+parseInt(v6.innerHTML)+parseInt(v7.innerHTML)+parseInt(v8.innerHTML)+parseInt(v9.innerHTML);
+ if (numQuest == 5) {
+    var value = parseInt(v1.innerHTML)+parseInt(v2.innerHTML)+parseInt(v3.innerHTML)+parseInt(v4.innerHTML)+parseInt(v5.innerHTML);
     document.getElementById("valuePopUp").innerHTML = value+'/'+numQuest;
     var x = document.createElement("div")
     x.innerHTML = '<div class="scoreOfQuest"><b>SCORE <b style="background-color:rgb(172, 63, 172);color: white;padding: 3px;border-radius: 5px;font-size: 15px;">'+value+'/'+numQuest+'</b></b></div>'
     document.getElementById("infoBox").appendChild(x)
+    if (v1.innerHTML == 0) {
+      document.getElementById("wrongLogo1").style.display = ''
+    }else{
+      document.getElementById("trueLogo1").style.display = ''
+    }
+    if (v2.innerHTML == 0) {
+      document.getElementById("wrongLogo2").style.display = ''
+    }else{
+      document.getElementById("trueLogo2").style.display = ''
+    }
+    if (v3.innerHTML == 0) {
+      document.getElementById("wrongLogo3").style.display = ''
+    }else{
+      document.getElementById("trueLogo3").style.display = ''
+    }
+    if (v4.innerHTML == 0) {
+      document.getElementById("wrongLogo4").style.display = ''
+    }else{
+      document.getElementById("trueLogo4").style.display = ''
+    }
+    if (v5.innerHTML == 0) {
+      document.getElementById("wrongLogo5").style.display = ''
+    }else{
+      document.getElementById("trueLogo5").style.display = ''
+    }
+    
  }
- if (numQuest == 10) {
-    var value = parseInt(v1.innerHTML)+parseInt(v2.innerHTML)+parseInt(v3.innerHTML)+parseInt(v4.innerHTML)+parseInt(v5.innerHTML)+parseInt(v6.innerHTML)+parseInt(v7.innerHTML)+parseInt(v8.innerHTML)+parseInt(v9.innerHTML)+parseInt(v10.innerHTML);
-    document.getElementById("valuePopUp").innerHTML = value+'/'+numQuest;
-    var x = document.createElement("div")
-    x.innerHTML = '<div class="scoreOfQuest"><b>SCORE <b style="background-color:rgb(172, 63, 172);color: white;padding: 3px;border-radius: 5px;font-size: 15px;">'+value+'/'+numQuest+'</b></b></div>'
-    document.getElementById("infoBox").appendChild(x)
- }
+ if (numQuest == 6) {
+  var value = parseInt(v1.innerHTML)+parseInt(v2.innerHTML)+parseInt(v3.innerHTML)+parseInt(v4.innerHTML)+parseInt(v5.innerHTML)+parseInt(v6.innerHTML);
+  document.getElementById("valuePopUp").innerHTML = value+'/'+numQuest;
+  var x = document.createElement("div")
+  x.innerHTML = '<div class="scoreOfQuest"><b>SCORE <b style="background-color:rgb(172, 63, 172);color: white;padding: 3px;border-radius: 5px;font-size: 15px;">'+value+'/'+numQuest+'</b></b></div>'
+  document.getElementById("infoBox").appendChild(x)
+  if (v1.innerHTML == 0) {
+      document.getElementById("wrongLogo1").style.display = ''
+    }else{
+      document.getElementById("trueLogo1").style.display = ''
+    }
+    if (v2.innerHTML == 0) {
+      document.getElementById("wrongLogo2").style.display = ''
+    }else{
+      document.getElementById("trueLogo2").style.display = ''
+    }
+    if (v3.innerHTML == 0) {
+      document.getElementById("wrongLogo3").style.display = ''
+    }else{
+      document.getElementById("trueLogo3").style.display = ''
+    }
+    if (v4.innerHTML == 0) {
+      document.getElementById("wrongLogo4").style.display = ''
+    }else{
+      document.getElementById("trueLogo4").style.display = ''
+    }
+    if (v5.innerHTML == 0) {
+      document.getElementById("wrongLogo5").style.display = ''
+    }else{
+      document.getElementById("trueLogo5").style.display = ''
+    }
+    if (v6.innerHTML == 0) {
+      document.getElementById("wrongLogo6").style.display = ''
+    }else{
+      document.getElementById("trueLogo6").style.display = ''
+    }
+    
+}
+if (numQuest == 7) {
+  var value = parseInt(v1.innerHTML)+parseInt(v2.innerHTML)+parseInt(v3.innerHTML)+parseInt(v4.innerHTML)+parseInt(v5.innerHTML)+parseInt(v6.innerHTML)+parseInt(v7.innerHTML);
+  document.getElementById("valuePopUp").innerHTML = value+'/'+numQuest;
+  var x = document.createElement("div")
+  x.innerHTML = '<div class="scoreOfQuest"><b>SCORE <b style="background-color:rgb(172, 63, 172);color: white;padding: 3px;border-radius: 5px;font-size: 15px;">'+value+'/'+numQuest+'</b></b></div>'
+  document.getElementById("infoBox").appendChild(x)
+  if (v1.innerHTML == 0) {
+      document.getElementById("wrongLogo1").style.display = ''
+    }else{
+      document.getElementById("trueLogo1").style.display = ''
+    }
+    if (v2.innerHTML == 0) {
+      document.getElementById("wrongLogo2").style.display = ''
+    }else{
+      document.getElementById("trueLogo2").style.display = ''
+    }
+    if (v3.innerHTML == 0) {
+      document.getElementById("wrongLogo3").style.display = ''
+    }else{
+      document.getElementById("trueLogo3").style.display = ''
+    }
+    if (v4.innerHTML == 0) {
+      document.getElementById("wrongLogo4").style.display = ''
+    }else{
+      document.getElementById("trueLogo4").style.display = ''
+    }
+    if (v5.innerHTML == 0) {
+      document.getElementById("wrongLogo5").style.display = ''
+    }else{
+      document.getElementById("trueLogo5").style.display = ''
+    }
+    if (v6.innerHTML == 0) {
+      document.getElementById("wrongLogo6").style.display = ''
+    }else{
+      document.getElementById("trueLogo6").style.display = ''
+    }
+    if (v7.innerHTML == 0) {
+      document.getElementById("wrongLogo7").style.display = ''
+    }else{
+      document.getElementById("trueLogo7").style.display = ''
+    }
+    
+}
+if (numQuest == 8) {
+  var value = parseInt(v1.innerHTML)+parseInt(v2.innerHTML)+parseInt(v3.innerHTML)+parseInt(v4.innerHTML)+parseInt(v5.innerHTML)+parseInt(v6.innerHTML)+parseInt(v7.innerHTML)+parseInt(v8.innerHTML);
+  document.getElementById("valuePopUp").innerHTML = value+'/'+numQuest;
+  var x = document.createElement("div")
+  x.innerHTML = '<div class="scoreOfQuest"><b>SCORE <b style="background-color:rgb(172, 63, 172);color: white;padding: 3px;border-radius: 5px;font-size: 15px;">'+value+'/'+numQuest+'</b></b></div>'
+  document.getElementById("infoBox").appendChild(x)
+  if (v1.innerHTML == 0) {
+      document.getElementById("wrongLogo1").style.display = ''
+    }else{
+      document.getElementById("trueLogo1").style.display = ''
+    }
+    if (v2.innerHTML == 0) {
+      document.getElementById("wrongLogo2").style.display = ''
+    }else{
+      document.getElementById("trueLogo2").style.display = ''
+    }
+    if (v3.innerHTML == 0) {
+      document.getElementById("wrongLogo3").style.display = ''
+    }else{
+      document.getElementById("trueLogo3").style.display = ''
+    }
+    if (v4.innerHTML == 0) {
+      document.getElementById("wrongLogo4").style.display = ''
+    }else{
+      document.getElementById("trueLogo4").style.display = ''
+    }
+    if (v5.innerHTML == 0) {
+      document.getElementById("wrongLogo5").style.display = ''
+    }else{
+      document.getElementById("trueLogo5").style.display = ''
+    }
+    if (v6.innerHTML == 0) {
+      document.getElementById("wrongLogo6").style.display = ''
+    }else{
+      document.getElementById("trueLogo6").style.display = ''
+    }
+    if (v7.innerHTML == 0) {
+      document.getElementById("wrongLogo7").style.display = ''
+    }else{
+      document.getElementById("trueLogo7").style.display = ''
+    }
+    if (v8.innerHTML == 0) {
+      document.getElementById("wrongLogo8").style.display = ''
+    }else{
+      document.getElementById("trueLogo8").style.display = ''
+    }
+
+}
+if (numQuest == 9) {
+  var value = parseInt(v1.innerHTML)+parseInt(v2.innerHTML)+parseInt(v3.innerHTML)+parseInt(v4.innerHTML)+parseInt(v5.innerHTML)+parseInt(v6.innerHTML)+parseInt(v7.innerHTML)+parseInt(v8.innerHTML)+parseInt(v9.innerHTML);
+  document.getElementById("valuePopUp").innerHTML = value+'/'+numQuest;
+  var x = document.createElement("div")
+  x.innerHTML = '<div class="scoreOfQuest"><b>SCORE <b style="background-color:rgb(172, 63, 172);color: white;padding: 3px;border-radius: 5px;font-size: 15px;">'+value+'/'+numQuest+'</b></b></div>'
+  document.getElementById("infoBox").appendChild(x)
+  if (v1.innerHTML == 0) {
+      document.getElementById("wrongLogo1").style.display = ''
+    }else{
+      document.getElementById("trueLogo1").style.display = ''
+    }
+    if (v2.innerHTML == 0) {
+      document.getElementById("wrongLogo2").style.display = ''
+    }else{
+      document.getElementById("trueLogo2").style.display = ''
+    }
+    if (v3.innerHTML == 0) {
+      document.getElementById("wrongLogo3").style.display = ''
+    }else{
+      document.getElementById("trueLogo3").style.display = ''
+    }
+    if (v4.innerHTML == 0) {
+      document.getElementById("wrongLogo4").style.display = ''
+    }else{
+      document.getElementById("trueLogo4").style.display = ''
+    }
+    if (v5.innerHTML == 0) {
+      document.getElementById("wrongLogo5").style.display = ''
+    }else{
+      document.getElementById("trueLogo5").style.display = ''
+    }
+    if (v6.innerHTML == 0) {
+      document.getElementById("wrongLogo6").style.display = ''
+    }else{
+      document.getElementById("trueLogo6").style.display = ''
+    }
+    if (v7.innerHTML == 0) {
+      document.getElementById("wrongLogo7").style.display = ''
+    }else{
+      document.getElementById("trueLogo7").style.display = ''
+    }
+    if (v8.innerHTML == 0) {
+      document.getElementById("wrongLogo8").style.display = ''
+    }else{
+      document.getElementById("trueLogo8").style.display = ''
+    }
+    if (v9.innerHTML == 0) {
+      document.getElementById("wrongLogo9").style.display = ''
+    }else{
+      document.getElementById("trueLogo9").style.display = ''
+    }
+}
+if (numQuest == 10) {
+  var value = parseInt(v1.innerHTML)+parseInt(v2.innerHTML)+parseInt(v3.innerHTML)+parseInt(v4.innerHTML)+parseInt(v5.innerHTML)+parseInt(v6.innerHTML)+parseInt(v7.innerHTML)+parseInt(v8.innerHTML)+parseInt(v9.innerHTML)+parseInt(v10.innerHTML);
+  document.getElementById("valuePopUp").innerHTML = value+'/'+numQuest;
+  var x = document.createElement("div")
+  x.innerHTML = '<div class="scoreOfQuest"><b>SCORE <b style="background-color:rgb(172, 63, 172);color: white;padding: 3px;border-radius: 5px;font-size: 15px;">'+value+'/'+numQuest+'</b></b></div>'
+  document.getElementById("infoBox").appendChild(x)
+  if (v1.innerHTML == 0) {
+      document.getElementById("wrongLogo1").style.display = ''
+    }else{
+      document.getElementById("trueLogo1").style.display = ''
+    }
+    if (v2.innerHTML == 0) {
+      document.getElementById("wrongLogo2").style.display = ''
+    }else{
+      document.getElementById("trueLogo2").style.display = ''
+    }
+    if (v3.innerHTML == 0) {
+      document.getElementById("wrongLogo3").style.display = ''
+    }else{
+      document.getElementById("trueLogo3").style.display = ''
+    }
+    if (v4.innerHTML == 0) {
+      document.getElementById("wrongLogo4").style.display = ''
+    }else{
+      document.getElementById("trueLogo4").style.display = ''
+    }
+    if (v5.innerHTML == 0) {
+      document.getElementById("wrongLogo5").style.display = ''
+    }else{
+      document.getElementById("trueLogo5").style.display = ''
+    }
+    if (v6.innerHTML == 0) {
+      document.getElementById("wrongLogo6").style.display = ''
+    }else{
+      document.getElementById("trueLogo6").style.display = ''
+    }
+    if (v7.innerHTML == 0) {
+      document.getElementById("wrongLogo7").style.display = ''
+    }else{
+      document.getElementById("trueLogo7").style.display = ''
+    }
+    if (v8.innerHTML == 0) {
+      document.getElementById("wrongLogo8").style.display = ''
+    }else{
+      document.getElementById("trueLogo8").style.display = ''
+    }
+    if (v9.innerHTML == 0) {
+      document.getElementById("wrongLogo9").style.display = ''
+    }else{
+      document.getElementById("trueLogo9").style.display = ''
+    }
+    if (v10.innerHTML == 0) {
+      document.getElementById("wrongLogo10").style.display = ''
+    }else{
+      document.getElementById("trueLogo10").style.display = ''
+    }
+
+  }
    document.getElementById("dark").style.display = ""
   setTimeout(() => {
 var x = document.getElementById("donePop")
@@ -543,6 +895,210 @@ function startAnim(){
     </script>
 </body>
 </html>`
+}else{
+  document.getElementById("downer").innerHTML = `</div>
+    <script>
+    //hide mode on
+        const numQuest = `+jumlahPertanyaan+`;
+        function loader(){
+          var title = document.getElementById('theTitle').innerHTML;
+          var x = localStorage.getItem("loaderId");
+          if (x == "LOADX0X0X0X0X0XLOAD-"+title) {
+            document.getElementById("homeContainer").style.display = 'none';
+            document.getElementById("warningContainer").style.display = ''
+          }
+          
+        }
+function ans(ans,num,logic){
+  pickOneAnswer(num)
+var check = document.getElementById("check"+ans+num);
+var check_ui = document.getElementById("ui"+ans+num)
+if (check.checked == true) {
+  // UI AND EFFECT
+  check_ui.style.color = 'white'
+  check_ui.style.backgroundColor = 'rgb(172, 63, 172)'
+  //end UI AND EFFECT
+
+  //ENGINE AND LOGIC
+  if (logic == 1) {
+      document.getElementById("v"+num).innerHTML = 1
+      }else{
+          document.getElementById("v"+num).innerHTML = 0
+      }
+  //end ENGINE AND LOGIC
+}else{
+  // UI AND EFFECT
+  check_ui.style.backgroundColor = 'white'
+  check_ui.style.color = 'rgb(172, 63, 172)'
+  
+  //end UI AND EFFECT
+
+  //ENGINE AND LOGIC
+  if (logic == 1) {
+  document.getElementById("v"+num).innerHTML = 1
+  }else{
+      document.getElementById("v"+num).innerHTML = 0
+  }
+  //end ENGINE AND LOGIC
+}
+}
+function doneBtn(){
+  var conf = confirm("Apakah anda yakin ingin menyelesaikan kuis?")
+  if (conf == false) {
+    return false
+  }
+  var title = document.getElementById('theTitle').innerHTML;
+  localStorage.setItem("loaderId",  "LOADX0X0X0X0X0XLOAD-"+title);
+  document.getElementById('doneBtn').style.display = 'none'
+  if (numQuest == 2) {
+    var value = parseInt(v1.innerHTML)+parseInt(v2.innerHTML);
+    document.getElementById("valuePopUp").innerHTML = value+'/'+numQuest;
+    var x = document.createElement("div")
+    x.innerHTML = '<div class="scoreOfQuest"><b>SCORE <b style="background-color:rgb(172, 63, 172);color: white;padding: 3px;border-radius: 5px;font-size: 15px;">'+value+'/'+numQuest+'</b></b></div>'
+    document.getElementById("infoBox").appendChild(x)
+    
+ }
+ if (numQuest == 3) {
+    var value = parseInt(v1.innerHTML)+parseInt(v2.innerHTML)+parseInt(v3.innerHTML);
+    document.getElementById("valuePopUp").innerHTML = value+'/'+numQuest;
+    var x = document.createElement("div")
+    x.innerHTML = '<div class="scoreOfQuest"><b>SCORE <b style="background-color:rgb(172, 63, 172);color: white;padding: 3px;border-radius: 5px;font-size: 15px;">'+value+'/'+numQuest+'</b></b></div>'
+    document.getElementById("infoBox").appendChild(x)
+    
+ }
+ if (numQuest == 4) {
+    var value = parseInt(v1.innerHTML)+parseInt(v2.innerHTML)+parseInt(v3.innerHTML)+parseInt(v4.innerHTML);
+    document.getElementById("valuePopUp").innerHTML = value+'/'+numQuest;
+    var x = document.createElement("div")
+    x.innerHTML = '<div class="scoreOfQuest"><b>SCORE <b style="background-color:rgb(172, 63, 172);color: white;padding: 3px;border-radius: 5px;font-size: 15px;">'+value+'/'+numQuest+'</b></b></div>'
+    document.getElementById("infoBox").appendChild(x)
+    
+ }
+ if (numQuest == 5) {
+    var value = parseInt(v1.innerHTML)+parseInt(v2.innerHTML)+parseInt(v3.innerHTML)+parseInt(v4.innerHTML)+parseInt(v5.innerHTML);
+    document.getElementById("valuePopUp").innerHTML = value+'/'+numQuest;
+    var x = document.createElement("div")
+    x.innerHTML = '<div class="scoreOfQuest"><b>SCORE <b style="background-color:rgb(172, 63, 172);color: white;padding: 3px;border-radius: 5px;font-size: 15px;">'+value+'/'+numQuest+'</b></b></div>'
+    document.getElementById("infoBox").appendChild(x)
+    
+ }
+ if (numQuest == 6) {
+  var value = parseInt(v1.innerHTML)+parseInt(v2.innerHTML)+parseInt(v3.innerHTML)+parseInt(v4.innerHTML)+parseInt(v5.innerHTML)+parseInt(v6.innerHTML);
+  document.getElementById("valuePopUp").innerHTML = value+'/'+numQuest;
+  var x = document.createElement("div")
+  x.innerHTML = '<div class="scoreOfQuest"><b>SCORE <b style="background-color:rgb(172, 63, 172);color: white;padding: 3px;border-radius: 5px;font-size: 15px;">'+value+'/'+numQuest+'</b></b></div>'
+  document.getElementById("infoBox").appendChild(x)
+  
+}
+if (numQuest == 7) {
+  var value = parseInt(v1.innerHTML)+parseInt(v2.innerHTML)+parseInt(v3.innerHTML)+parseInt(v4.innerHTML)+parseInt(v5.innerHTML)+parseInt(v6.innerHTML)+parseInt(v7.innerHTML);
+  document.getElementById("valuePopUp").innerHTML = value+'/'+numQuest;
+  var x = document.createElement("div")
+  x.innerHTML = '<div class="scoreOfQuest"><b>SCORE <b style="background-color:rgb(172, 63, 172);color: white;padding: 3px;border-radius: 5px;font-size: 15px;">'+value+'/'+numQuest+'</b></b></div>'
+  document.getElementById("infoBox").appendChild(x)
+  
+}
+if (numQuest == 8) {
+  var value = parseInt(v1.innerHTML)+parseInt(v2.innerHTML)+parseInt(v3.innerHTML)+parseInt(v4.innerHTML)+parseInt(v5.innerHTML)+parseInt(v6.innerHTML)+parseInt(v7.innerHTML)+parseInt(v8.innerHTML);
+  document.getElementById("valuePopUp").innerHTML = value+'/'+numQuest;
+  var x = document.createElement("div")
+  x.innerHTML = '<div class="scoreOfQuest"><b>SCORE <b style="background-color:rgb(172, 63, 172);color: white;padding: 3px;border-radius: 5px;font-size: 15px;">'+value+'/'+numQuest+'</b></b></div>'
+  document.getElementById("infoBox").appendChild(x)
+  
+}
+if (numQuest == 9) {
+  var value = parseInt(v1.innerHTML)+parseInt(v2.innerHTML)+parseInt(v3.innerHTML)+parseInt(v4.innerHTML)+parseInt(v5.innerHTML)+parseInt(v6.innerHTML)+parseInt(v7.innerHTML)+parseInt(v8.innerHTML)+parseInt(v9.innerHTML);
+  document.getElementById("valuePopUp").innerHTML = value+'/'+numQuest;
+  var x = document.createElement("div")
+  x.innerHTML = '<div class="scoreOfQuest"><b>SCORE <b style="background-color:rgb(172, 63, 172);color: white;padding: 3px;border-radius: 5px;font-size: 15px;">'+value+'/'+numQuest+'</b></b></div>'
+  document.getElementById("infoBox").appendChild(x)
+}
+if (numQuest == 10) {
+  var value = parseInt(v1.innerHTML)+parseInt(v2.innerHTML)+parseInt(v3.innerHTML)+parseInt(v4.innerHTML)+parseInt(v5.innerHTML)+parseInt(v6.innerHTML)+parseInt(v7.innerHTML)+parseInt(v8.innerHTML)+parseInt(v9.innerHTML)+parseInt(v10.innerHTML);
+  document.getElementById("valuePopUp").innerHTML = value+'/'+numQuest;
+  var x = document.createElement("div")
+  x.innerHTML = '<div class="scoreOfQuest"><b>SCORE <b style="background-color:rgb(172, 63, 172);color: white;padding: 3px;border-radius: 5px;font-size: 15px;">'+value+'/'+numQuest+'</b></b></div>'
+  document.getElementById("infoBox").appendChild(x)
+
+  }
+   document.getElementById("dark").style.display = ""
+  setTimeout(() => {
+var x = document.getElementById("donePop")
+x.style.transition = '0.3s'
+x.style.top = '50%'
+x.style.opacity = '100%'
+                   }, 300);
+}
+function closePopup(){
+var x = document.getElementById("donePop");
+x.style.opacity = "0%"
+x.style.display = 'none'
+setTimeout(() => {
+  x.style.display = 'none'
+  document.getElementById("dark").style.display = 'none'
+}, 300);
+}
+function pickOneAnswer(num){
+  if (document.getElementById("checkA"+num+"").checked == true) {
+  }else{
+    document.getElementById("checkB"+num+"").checked = false
+    document.getElementById("checkC"+num+"").checked = false
+    document.getElementById("checkD"+num+"").checked = false
+    document.getElementById("checkB"+num+"").style.color = 'white'
+    document.getElementById("checkB"+num+"").style.backgroundColor = 'rgb(172, 63, 172)'
+    document.getElementById("checkC"+num+"").style.color = 'white'
+    document.getElementById("checkC"+num+"").style.backgroundColor = 'rgb(172, 63, 172)'
+    document.getElementById("checkD"+num+"").style.color = 'white'
+    document.getElementById("checkD"+num+"").style.backgroundColor = 'rgb(172, 63, 172)'
+    
+  }
+  if (document.getElementById("checkB"+num+"").checked == true) {
+  }else{
+    document.getElementById("checkA"+num+"").checked = false
+    document.getElementById("checkC"+num+"").checked = false
+    document.getElementById("checkD"+num+"").checked = false
+    document.getElementById("uiA"+num+"").style.color = 'white'
+    document.getElementById("uiA"+num+"").style.backgroundColor = 'rgb(172, 63, 172)'
+    document.getElementById("uiC"+num+"").style.color = 'white'
+    document.getElementById("uiC"+num+"").style.backgroundColor = 'rgb(172, 63, 172)'
+    document.getElementById("uiD"+num+"").style.color = 'white'
+    document.getElementById("uiD"+num+"").style.backgroundColor = 'rgb(172, 63, 172)'
+    
+  }
+  if (document.getElementById("checkC"+num+"").checked == true) {
+  }else{
+    document.getElementById("checkB"+num+"").checked = false
+    document.getElementById("checkA"+num+"").checked = false
+    document.getElementById("checkD"+num+"").checked = false
+    document.getElementById("uiB"+num+"").style.color = 'white'
+    document.getElementById("uiB"+num+"").style.backgroundColor = 'rgb(172, 63, 172)'
+    document.getElementById("uiA"+num+"").style.color = 'white'
+    document.getElementById("uiA"+num+"").style.backgroundColor = 'rgb(172, 63, 172)'
+    document.getElementById("uiD"+num+"").style.color = 'white'
+    document.getElementById("uiD"+num+"").style.backgroundColor = 'rgb(172, 63, 172)'
+    
+  }
+  if (document.getElementById("checkD"+num+"").checked == true) {
+  }else{
+    document.getElementById("checkB"+num+"").checked = false
+    document.getElementById("checkC"+num+"").checked = false
+    document.getElementById("checkA"+num+"").checked = false
+    document.getElementById("uiB"+num+"").style.color = 'white'
+    document.getElementById("uiB"+num+"").style.backgroundColor = 'rgb(172, 63, 172)'
+    document.getElementById("uiC"+num+"").style.color = 'white'
+    document.getElementById("uiC"+num+"").style.backgroundColor = 'rgb(172, 63, 172)'
+    document.getElementById("uiA"+num+"").style.color = 'white'
+    document.getElementById("uiA"+num+"").style.backgroundColor = 'rgb(172, 63, 172)'
+    
+  }
+}
+function startAnim(){
+  
+}
+    </script>
+</body>
+</html>`
+}
     var chA = document.getElementById("checkA"+num)
     var chB = document.getElementById("checkB"+num)
     var chC = document.getElementById("checkC"+num)
@@ -552,6 +1108,8 @@ function startAnim(){
     document.getElementById("textarea"+num).innerHTML = `<div class="allContainer">
           <div class="exerContainer">
             <p style="display:none;" id="v`+num+`">0</p>
+            <p id="trueLogo`+num+`" style="float: right;margin: 15px;margin-right: 28px;font-size: 22px;color: rgb(63, 151, 23);font-weight: 600;display: none;">✓</p>
+            <p id="wrongLogo`+num+`" style="float: right;margin: 10px;margin-right: 25px;font-size: 35px;color: rgb(182, 26, 26);display: none;">×</p>
               <div style="width:92%;margin-left: auto;margin-right: auto;">
               <pre style="font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;"><br>`+num+`. `+document.getElementById("quest"+num).value+`</pre>
               <br>
@@ -576,6 +1134,8 @@ function startAnim(){
     document.getElementById("textarea"+num).innerHTML = `<div class="allContainer">
           <div class="exerContainer">
             <p style="display:none;" id="v`+num+`">0</p>
+            <p id="trueLogo`+num+`" style="float: right;margin: 15px;margin-right: 28px;font-size: 22px;color: rgb(63, 151, 23);font-weight: 600;display: none;">✓</p>
+            <p id="wrongLogo`+num+`" style="float: right;margin: 10px;margin-right: 25px;font-size: 35px;color: rgb(182, 26, 26);display: none;">×</p>
               <div style="width:92%;margin-left: auto;margin-right: auto;">
               <pre style="font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;"><br>`+num+`. `+document.getElementById("quest"+num).value+`</pre>
               <br>
@@ -601,6 +1161,8 @@ function startAnim(){
     document.getElementById("textarea"+num).innerHTML = `<div class="allContainer">
           <div class="exerContainer">
             <p style="display:none;" id="v`+num+`">0</p>
+            <p id="trueLogo`+num+`" style="float: right;margin: 15px;margin-right: 28px;font-size: 22px;color: rgb(63, 151, 23);font-weight: 600;display: none;">✓</p>
+            <p id="wrongLogo`+num+`" style="float: right;margin: 10px;margin-right: 25px;font-size: 35px;color: rgb(182, 26, 26);display: none;">×</p>
               <div style="width:92%;margin-left: auto;margin-right: auto;">
               <pre style="font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;"><br>`+num+`. `+document.getElementById("quest"+num).value+`</pre>
               <br>
@@ -625,6 +1187,8 @@ function startAnim(){
     document.getElementById("textarea"+num).innerHTML = `<div class="allContainer">
           <div class="exerContainer">
             <p style="display:none;" id="v`+num+`">0</p>
+            <p id="trueLogo`+num+`" style="float: right;margin: 15px;margin-right: 28px;font-size: 22px;color: rgb(63, 151, 23);font-weight: 600;display: none;">✓</p>
+            <p id="wrongLogo`+num+`" style="float: right;margin: 10px;margin-right: 25px;font-size: 35px;color: rgb(182, 26, 26);display: none;">×</p>
               <div style="width:92%;margin-left: auto;margin-right: auto;">
               <pre style="font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;"><br>`+num+`. `+document.getElementById("quest"+num).value+`</pre>
               <br>
@@ -889,6 +1453,8 @@ function startAnim(){
           <div class="exerContainer">
           <br>
             <p style="display:none;" id="v`+num+`">0</p>
+            <p id="trueLogo`+num+`" style="float: right;margin: 15px;margin-right: 28px;font-size: 22px;color: rgb(63, 151, 23);font-weight: 600;display: none;">✓</p>
+            <p id="wrongLogo`+num+`" style="float: right;margin: 10px;margin-right: 25px;font-size: 35px;color: rgb(182, 26, 26);display: none;">×</p>
               <div style="width:92%;margin-left: auto;margin-right: auto;">
               <pre style="font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">`+num+`. `+document.getElementById("quest"+num).value+`</pre>
               </div>
@@ -921,10 +1487,7 @@ function startAnim(){
     }
   }
   function createExer(){
-    window.onbeforeunload = function()
-{
-  return "Change are still not saved. Are you sure?";
-};
+ 
     var exerNum = document.getElementById("exerNum").value;
     if (exerNum < 2) {
       Stechal({
@@ -939,10 +1502,10 @@ function startAnim(){
       })
       return false
     }
-    if (exerNum > 5) {
+    if (exerNum > 10) {
       Stechal({
         title: "Warning",
-        text: "The maximum number of questions is <b>5</b>",
+        text: "Jumlah maksimum nomor adalah <b>10</b>",
         textStyle: "margin-top:5px;",
         buttonStyle:"margin-top:9px",
         id: "didin",
@@ -950,25 +1513,59 @@ function startAnim(){
         icon: "information",
         button: "OK"
       })
+      return false
     }
     if (document.getElementById("judulInp").value == "") {
       Stechal({
-        text:"",
+        text:"Judul kuis tidak boleh kosong.",
         button:'OK',
-        title:"Title can't be empty",
-        titleStyle:"font-family:arial;",
+        title:"Warning!",
+        titleStyle:"font-family:arial;font-size:28px",
         textStyle:"font-family:arial;font-size:14px", 
         id: "alertz4",
         type:'alert',
-        icon: 'information'
+        icon: 'warning'
+        
     }); 
+    
       document.getElementById("judulInp").style.border = "2px solid rgb(205,0,0)"
       document.getElementById("judulInp").style.transition = '0.3s'
       setTimeout(() => {
         document.getElementById("judulInp").style.border = "2px solid purple"
         document.getElementById("judulInp").style.transition = '0.3s'
       }, 3000);
+      return false
     }else{
+      window.onbeforeunload = function()
+      {
+        return "Change are still not saved. Are you sure?";
+      };
+      setTimeout(() => {
+        var popup = document.getElementById("myPopup2");
+        popup.classList.toggle("show");
+      }, 500);
+      setTimeout(() => {
+        var popup = document.getElementById("myPopup3");
+        popup.classList.toggle("show");
+      }, 3500);
+      setTimeout(() => {
+        var popup = document.getElementById("myPopup3");
+        popup.classList.toggle("show");
+        popup.style.opacity = '0%'
+              popup.style.transition = '0.4s'
+              setTimeout(() => {
+                popup.style.display = 'none'
+              }, 400);
+      }, 8000);
+      setTimeout(() => {
+        var popup = document.getElementById("myPopup2");
+        popup.classList.toggle("show");
+        popup.style.opacity = '0%'
+              popup.style.transition = '0.4s'
+              setTimeout(() => {
+                popup.style.display = 'none'
+              }, 400);
+      }, 3000);
       document.getElementById("makePopUp").style.opacity = '0%'
     document.getElementById("makePopUp").style.transition = '0.3s'
     setTimeout(() => {
@@ -986,12 +1583,12 @@ function startAnim(){
     wn.innerHTML = `<div class="exercise">
       <br>
 <div class="number">`+i+`</div>
-<label for="quest`+i+`">Question</label>
+<label for="quest`+i+`">Pertanyaan</label>
 <br>
 <textarea spellcheck="false" oninput="fullFill('`+i+`')" id="quest`+i+`"></textarea>
 <br>
 <br>
-<label for="">Answer Key</label>
+<label for="">Kunci Jawaban</label>
 <div class="keybox">
   <div class="abcGroup">
  <label for="checkA`+i+`" id="uiA`+i+`" onclick="makeAnswer(`+i+`,'A')" class="opt">A</label>
@@ -1027,26 +1624,39 @@ document.getElementById("centerer").appendChild(wn);
     });
     c.href = window.URL.createObjectURL(t);
     c.click();
+    localStorage.setItem(fileName, fileContent);
     }
     }
     function inputAnswer(){
       Stechal({
-        title: "Sorry!",
-        text: "Essay questions is not yet available. We are still developing this feature. ",
+        title: "Maaf!",
+        text: "Kuis isian masih belum tersedia pada versi ini. Kami masih sedang mengembangkan fitur ini.",
         id: "error1",
         icon: "warning",
         type: "alert",
         button: "OK",
-        textStyle: "margin-top:5px",
-        buttonStyle: "margin-top: 8px"
+        textStyle: "margin-top:10px",
+        buttonStyle: "margin-top: -10px"
       })
     }
-
     function bodyLoader(){
-    setTimeout(() => {
-      var popup = document.getElementById("myPopup");
-      popup.classList.toggle("show");
-    }, 500);
+    // setTimeout(() => {
+    //   var popup = document.getElementById("myPopup");
+    //   popup.classList.toggle("show");
+    // }, 500);
+    var l = localStorage.getItem("doneSetup");
+    if (l == "setup-data") {
+      document.getElementById("setupBox").style.display = 'none'
+      document.getElementById("welcomeScreen").style.display = 'none'
+      document.getElementById("judLabel").style.display = ''
+      document.getElementById("judulInp0").style.display = ''
+      document.getElementById("myPopup3").style.display = 'none'
+      document.getElementById("myPopup2").style.display = 'none'
+    }else{
+      document.getElementById("setupBox").style.display = ''
+      document.getElementById("welcomeScreen").style.display = ''
+    }
+    
     }
     function removePopup(){
       var popup = document.getElementById("myPopup");
@@ -1056,4 +1666,137 @@ document.getElementById("centerer").appendChild(wn);
           popup.style.display = 'none'
         }, 400);
         
+    }
+    function checkMediaQuery() {
+      if (window.innerWidth > 620) {
+        document.getElementById("x").classList.add("namaClassNya")
+      }else{
+        document.getElementById("x").classList.remove("namaClassNya")
+      }
+    }
+    window.addEventListener('resize', checkMediaQuery);
+    function inpChecker(){
+      var inp  = document.getElementById("exerNum");
+      var b1 = document.getElementById("creatorBtn");
+      var b2 = document.getElementById("creatorBtn2");
+      if (inp.value <= 1 || inp.value == "" || inp.value == 0 || inp.value == null) {
+        b1.style.display = 'none'
+        b2.style.display = ''
+        return false
+      }else{
+        b2.style.display = 'none'
+        b1.style.display = ''
+      }
+    }
+    function doneJudul(){
+      var j = document.getElementById("judulInp0");
+      j.style.transition = '0.3s'
+      var j2 = document.getElementById("judulInp")
+      j2.value = j.value
+      document.getElementById("judLabel").style.transition = '0.3s'
+      j.style.opacity = 0
+      document.getElementById("judLabel").style.opacity = 0
+      setTimeout(() => {
+        j.style.display = 'none'
+        document.getElementById("judLabel").style.display = 'none'
+      }, 300);
+      setTimeout(() => {
+        var b = document.getElementById("buatKuis");
+        b.style.display = ''
+        b.style.transition = '0.3s'
+        setTimeout(() => {
+          b.style.transform = 'translate(-50%,-50%) scale(1) ';
+          
+      setTimeout(() => {
+        document.getElementById("purMark").style.transition = '0.3s'
+      document.getElementById("purMark").style.width = "250px"
+      setTimeout(() => {
+        document.getElementById("showCorrectBtn").style.border = '1px solid black'
+      }, 350);
+      }, 280);
+        }, 280);
+      }, 280);
+      
+    }
+    
+    function showCorrect(){
+      showCorrectOutput = true;
+      var s = document.getElementById("showCorrectBtn");
+      var h = document.getElementById("hideCorrectBtn");
+      s.style.border = '1px solid black'
+      h.style.border = '1px solid transparent'
+    }
+    function hideCorrect(){
+      showCorrectOutput = false;
+      var s = document.getElementById("showCorrectBtn");
+      var h = document.getElementById("hideCorrectBtn");
+      h.style.border = '1px solid black'
+      s.style.border = '1px solid transparent'
+    }
+    function scanner(){
+      if (showCorrectOutput == true) {
+        alert("show")
+      }else{
+        alert("hide")
+      }
+    }
+    function indoBtn(){
+
+      var s = document.getElementById("setupBox");
+      var w = document.getElementById("welcomeScreen");
+      var t = document.getElementById("welcomeText");
+      w.style.transition = '0.3s'
+      w.style.height = '100%'
+      w.style.width = '100%'
+      s.style.transition = '0.2s'
+      s.style.transform = "translate(-50%,-50%) scale(0.0)"
+      setTimeout(() => {
+        s.style.display = 'none'
+      }, 300);
+      setTimeout(() => {
+        t.innerHTML = 'Selamat Datang di <span id="exerLg" style="color:rgb(148, 28, 122)">Exerr</span>'
+      }, 3000);
+      setTimeout(() => {
+        w.style.animation = 'changeColor 5s linear'
+      }, 5000);
+      setTimeout(() => {
+        document.getElementById("judLabel").style.display = ''
+        // document.getElementById("pupup").style.display = ''
+        // document.getElementById("myPopup").style.display = ''
+        document.getElementById("judulInp0").style.display = ''
+        w.style.backgroundColor = 'black'
+        t.style.color = 'black'
+        document.getElementById("exerLg").style.transition = '1s'
+        document.getElementById("exerLg").style.color = 'rgb(209, 24, 209)'
+        setTimeout(() => {
+          document.getElementById("exerLg").style.transition = '0.5s'
+          document.getElementById("exerLg").style.color = 'black'
+        }, 10000);
+      }, 8000);
+      setTimeout(() => {
+        document.getElementById("exerLg").style.display = 'none'
+      }, 12000);
+      setTimeout(() => {
+        w.style.opacity = '0%'
+        setTimeout(() => {
+          var popup = document.getElementById("myPopup");
+          popup.classList.toggle("show");
+        }, 500);
+      }, 15000);
+      setTimeout(() => {
+        w.style.display = 'none'
+        localStorage.setItem("doneSetup", "setup-data")
+      }, 16000);
+      
+    }
+    function memoryQuiz(num){
+      document.getElementById("showMemory").style.display = ''
+      var nama = document.getElementById("nameQuiz"+num+"").innerHTML
+      var jumlah = document.getElementById("numberQuiz"+num+"").innerHTML;
+      var correction = document.getElementById("correctionQuiz"+num+"").innerHTML;
+      var waktu = document.getElementById("timeQuiz"+num+"").innerHTML;
+      document.getElementById("nameQuiz").innerHTML = nama;
+      document.getElementById("numberQuiz").innerHTML = jumlah;
+      document.getElementById("correctionQuiz").innerHTML = correction;
+      document.getElementById("timeQuiz").innerHTML = waktu;
     }
